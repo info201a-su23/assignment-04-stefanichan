@@ -5,67 +5,105 @@ output: html_document
 
 ### Introduction
 
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+In the US black and brown folks are disproportionally incarcerated at a much higher rate than their white counterparts. This has to do with a lack of a fair trial and questionable policing. I will be analyzing the year to see any trends. I will also analyze population rates from all races to see if any racial disparity arise.
 
 ### Summary Information
+What is the total black prison population?
+The total black prison population is: 12113359.
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+What is the total of male population in prison?
+The total male prison population is: 25189045
 
-These will likely be calculated using your DPLYR skills, answering questions such as: 
+Which state has the highest AAPI prison population?
+The state with the highest AAPI prison population is: HI.
 
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
+What is the year with the most females in prison?
+The year with the most female prison population is: 1998.
 
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
+Which year has the most male prison population?
+The year with the most male prison population is: 2007.
 
 ### The Dataset
 
-Who collected the data?  
-How was the data collected or generated?  
-Why was the data collected?  
+Who collected the data?
+The data was collected by the Vera Institute for Justice.
+How was the data collected or generated?
+The data was collected by merging data they found with original jail sets in order to examine both jail and prison incarceration.
+
+Why was the data collected? This data was collected to see demographic disparities that arise and any relevant trends. There is divided justice in the US therefore it is important to study that as well.
 How many observations (rows) are in your data?  
-How many features (columns) are in the data?  
+How many features (columns) are in the data? 
+
+There are more than 250 rows in my data and more than 10 columns.
+
 What, if any, ethical questions or questions of power do you need to consider when working with this data?  
+
+I would consider these questions when working with the data. Are these numbers accurate? Why are there lots of black incarcerations that does not seem accurate? What are the population differences between racial groups?
+
 What are possible limitations or problems with this data?   (at least 200 words)
+
+Some possible limitations are problems with this data is that there are a lot of null values in the table. This might be an issue since it might not give me an accurate number of what I want to calculate. Additionally there could be more people in jail/prison than what is presented in the dataset. The US justice system is flawed and we don't know the reasons for which individuals are incarcerated for whatever reason. These numbers could also be skewed and lead to misinterpreting the message. There are not alot of data of minorities in prison which could be challenging. Minorities have a lower population however they mostly have null values. Therefore they are not accurately represented in the dataset.
+
 
 
 ### Trends Over Time Chart
+---
+title: "Download and Save CSV Data"
+output: html_document
+---
+Code for Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+```{r}
 
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+#top_states <- state_avg_black_pop[order(state_avg_black_pop$black_prison_pop, decreasing = TRUE), ]
+#top_states <- head(top_states, 5)
 
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
+#prison_top_states <- subset(prisoncountystate, state %in% top_states$state)
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+#ggplot(prison_top_states, aes(x = year, y = black_prison_pop, color = state)) +
+  #geom_line() +
+  #labs(title = "Black Prison Population Over the Years (Top 5 States)",
+#       x = "Year",
+#       y = "Black Prison Population",
+#       color = "State") +
+#  theme_minimal() +
+#  theme(legend.position = "bottom center")
 ```
+
+![Image Caption](C:/Users/user/OneDrive/Pictures/Screenshots/blprison.png)
+
+This chart shows the population of Black incarcerations over the years in the top 5 states which they have the highest populations of African Americans. In which the states are represented in different colors. The states which has the highest black incarerations are: California, Florida, Maryland, New Jersey, and New York. I wanted to show this data because it shows the pattern that 1990 and onward black incarcerations kept increasing. And from recent civil events about racial justice, the data shows increase of black people in prison. These top 5 states has some of the highest populations in the US. And these states has a long history of civil movements.
+
+
 
 ### Variable Comparison Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
 
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+```{r}
+#ggplot(prisoncountystate, aes(x = year)) +
+#geom_line(aes(y = black_prison_pop, color = "Black Prison #Population")) +
+#labs(title = "Comparison of Black and White Prison Populations",
+#       x = "Year",
+#       y = "Population",
+#       color = "Population Group") +
+#  scale_color_manual(values = c("Black Prison Population" = "purple", "White Prison Population" = "red"))
+```
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+
+![Image Caption](C:\Users\user\OneDrive\Pictures\Screenshots\blwhite.png)
+
+
+This second chart shows the comparison of black and white population over the years. This chart shows that black incarceration rates are much higher than white prison population. Event though, white people are the dominant race as a whole in the US. This data shows the disproportional rates of which black americans are being put in prison for. 
 
 ### Map
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
+```{r}
+#ggplot() +
+#  geom_sf(data = jailpop_states, aes(fill = male_adult_jail_pop))
+#  scale_fill_gradient(low = "white", high = "black") +
+ # labs(title = "Male Adult Jail Population by State",
+ #      fill = "Male Adult Jail Population") +
+#  theme_void()
+```
+![Image Caption](C:\Users\user\kul.png)
+This is a dot density map that shows black population in jail across the US. Some areas are more dense than others. I included this map to show the concentration of black american jail population. Most of the population is towards the east with a bit of higher population. 
 
